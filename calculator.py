@@ -105,9 +105,12 @@ class Calculator(QWidget):
         if self.op == "*":
             self.input.setText(str(self.num_1 * self.num_2))
         if self.op == "÷":
-            self.input.setText(str(self.num_1 / self.num_2))
+            if self.num_2 != 0:
+                self.input.setText(str(self.num_1 / self.num_2))
+            else:self.input.setText("На 0 делить нельзя!")
         if self.op == "C":
             self.input.setText("")
+
 
 
 app = QApplication(sys.argv)
