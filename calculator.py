@@ -17,6 +17,9 @@ class Calculator(QWidget):
         self.input = QLineEdit(self)
         self.hbox_input.addWidget(self.input)
 
+        self.b_delete = QPushButton("C", self)
+        self.hbox_first.addWidget(self.b_delete)
+
         self.b_1 = QPushButton("1", self)
         self.hbox_first.addWidget(self.b_1)
 
@@ -47,6 +50,9 @@ class Calculator(QWidget):
         self.b_0 = QPushButton("0", self)
         self.hbox_first.addWidget(self.b_0)
 
+        self.b_point = QPushButton(".", self)
+        self.hbox_first.addWidget(self.b_point)
+
         self.b_plus = QPushButton("+", self)
         self.hbox_first.addWidget(self.b_plus)
 
@@ -68,6 +74,7 @@ class Calculator(QWidget):
         self.b_del.clicked.connect(lambda: self._operation("÷"))
         self.b_result.clicked.connect(self._result)
 
+        self.b_delete.clicked.connect(lambda: self._operation("C"))
         self.b_1.clicked.connect(lambda: self._button("1"))
         self.b_2.clicked.connect(lambda: self._button("2"))
         self.b_3.clicked.connect(lambda: self._button("3"))
@@ -78,18 +85,19 @@ class Calculator(QWidget):
         self.b_8.clicked.connect(lambda: self._button("8"))
         self.b_9.clicked.connect(lambda: self._button("9"))
         self.b_0.clicked.connect(lambda: self._button("0"))
+        self.b_point.clicked.connect(lambda: self._button("."))
 
     def _button(self, param):
         line = self.input.text()
         self.input.setText(line + param)
 
     def _operation(self, op):
-        self.num_1 = int(self.input.text())
+        self.num_1 = float(self.input.text())
         self.op = op
         self.input.setText("")
 
     def _result(self):
-        self.num_2 = int(self.input.text())
+        self.num_2 = float(self.input.text())
         if self.op == "+":
             self.input.setText(str(self.num_1 + self.num_2))
         if self.op == "-":
@@ -98,6 +106,9 @@ class Calculator(QWidget):
             self.input.setText(str(self.num_1 * self.num_2))
         if self.op == "÷":
             self.input.setText(str(self.num_1 / self.num_2))
+        if self.op == "C":
+            self.input.setText("")
+
 
 app = QApplication(sys.argv)
 
